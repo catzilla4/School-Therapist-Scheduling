@@ -1,0 +1,84 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="TherapyScheduler.MainWindow"
+        Title="View Schools" Height="350" Width="525">
+    <Grid>
+        <Grid x:Name="mainGrid">
+            <Grid Visibility="Visible">
+                <Rectangle x:Name="fakeRibbon" Fill="#FFF4F4F5" Stroke="Black" VerticalAlignment="Top" Height="130" Margin="0,-5,0.4,0"/>
+                <Grid x:Name="startGrid" Height="124" Margin="0,0,0.4,0" VerticalAlignment="Top" KeyDown="Move">
+                    <Button x:Name="schoolAddButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" Height="104" Click="schoolAdd" Content="Add School" Margin="10,10,0,0" TabIndex="1"/>
+                    <Button x:Name="generationActivationButton" Content="Generate schedule" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="118" Height="104" Click="activateSchedule" MinWidth="120" TabIndex="2"/>
+                    <Button x:Name="saveDataButton" Content="Save Data" HorizontalAlignment="Right" VerticalAlignment="Top" Width="126" Height="104" Click="activateSave" Margin="0,10,10,0" TabIndex="3"/>
+                </Grid>
+                <Grid x:Name="scheduleSaveGrid" Height="124" Margin="0,0,0.4,0" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden">
+                    <Button x:Name="scheduleSaveButton" Content="Save Schedule" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" RenderTransformOrigin="-0.27,0.419" Height="94" Click="activateScheduleSave"/>
+                    <Button Content="Go Back" HorizontalAlignment="Right" Margin="371,0,-0.4,0" VerticalAlignment="Top" Width="146" Height="94" Click="scheduleToStart"/>
+
+                </Grid>
+                <Grid x:Name="schoolTimesGrid" Height="124" VerticalAlignment="Top" RenderTransformOrigin="0.504,0.866" Margin="0" IsHitTestVisible="True" IsEnabled="False" Visibility="Hidden">
+                    <TextBox x:Name="Tuesday" Height="23" Margin="38,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" TabIndex="2"/>
+                    <TextBox x:Name="Wednesday" Height="23" Margin="38,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" TabIndex="3"/>
+                    <TextBox x:Name="Thursday" Height="23" Margin="38,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" TabIndex="4"/>
+                    <TextBox x:Name="Monday" TextWrapping="Wrap" Margin="38,0,0,0" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" TabIndex="1"/>
+                    <TextBox x:Name="Friday" Height="23" Margin="38,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" TabIndex="5"/>
+                    <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="MTWTF&#xA;" Width="23" Margin="10,5,0,5" FontSize="15" IsReadOnly="True"/>
+                    <Button Content="Add student" HorizontalAlignment="Center" Margin="60,5,0,0" VerticalAlignment="Top" Width="135" Height="54" Click="studentAdd" TabIndex="6"/>
+                    <TextBox x:Name="schoolNameBox" HorizontalAlignment="Right" Height="23" Margin="0,36,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" VerticalScrollBarVisibility="Visible" TabIndex="8"/>
+                    <Label Content="School Name" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.509,0.543" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="backButton" Content="Back to Main" HorizontalAlignment="Right" Margin="0,64,10,0" VerticalAlignment="Top" Width="134" Height="50" Click="backToStart" TabIndex="9"/>
+                    <Button Content="Edit Affinities" HorizontalAlignment="Center" Margin="221,64,161,0" VerticalAlignment="Top" Width="135" Height="50" Click="affinityEditor" TabIndex="7"/>
+                </Grid>
+                <ScrollViewer x:Name="viewingArea" Margin="0,129,0,-1.6" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+
+
+            </Grid>
+        </Grid>
+        <Grid x:Name="studentAdder" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="233*"/>
+                <ColumnDefinition Width="284*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Student Name" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="103"/>
+            <TextBox x:Name="nameBox" Height="26" Margin="118,25,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" TabIndex="0"/>
+            <Label Content="Type of Therapy" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Height="30" Width="103"/>
+            <ComboBox x:Name="typeBox" Margin="118,56,10,0" VerticalAlignment="Top" Height="30" Grid.ColumnSpan="2">
+                <Button Click="addType" Content="Add new type" d:IsHidden="True" />
+            </ComboBox>
+            <Label Content="Times Available" Margin="0,86,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.511,0.692" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+
+            <Label Content="Monday" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="92"/>
+            <Label Content="Tuesday" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0" Width="92"/>
+            <Label Content="Wednesday" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.615" Width="92"/>
+            <Label Content="Thursday" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" Width="92"/>
+            <Label Content="Friday" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.105,0.538" Width="92"/>
+            <TextBox x:Name="Mo" Height="23" Margin="118,110,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" TabIndex="1"/>
+            <TextBox x:Name="Tu" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="389" Margin="118,135,10,0" Grid.ColumnSpan="2" TabIndex="2"/>
+            <TextBox x:Name="We" Height="23" Margin="118,161,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389" Grid.ColumnSpan="2" TabIndex="3"/>
+            <TextBox x:Name="Th" Height="23" Margin="118,189,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389" Grid.ColumnSpan="2" TabIndex="4"/>
+            <TextBox x:Name="Fr" Height="23" Margin="118,220,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389" RenderTransformOrigin="0.5,0.565" Grid.ColumnSpan="2" TabIndex="5"/>
+            <Label Margin="15,284,10,10" RenderTransformOrigin="0.211,-0.115" Grid.ColumnSpan="2"/>
+            <Button Content="Return to School" Margin="10,277,10,10" Grid.ColumnSpan="2" Click="studentReturn" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="lengthTimeBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="118,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" TabIndex="7"/>
+            <Label Content="Length of block" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="103"/>
+            <Label Content="Blocks needed" Grid.Column="1" HorizontalAlignment="Left" Margin="18,249,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.211,0.423"/>
+            <TextBox x:Name="blockBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="109,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
+
+        </Grid>
+        <Grid x:Name="AffinityEditor" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="leftAffinityBox" Grid.Column="0" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="leftSelectionChanged" TabIndex="1" ToolTip="Select a student from this list and the other list to prepare an affinity.  Type the number of the affinity and press &quot;Set&quot; to give the pair that affinity.  It does not matter what order you select the pair."/>
+            <ListBox x:Name="rightAffinityBox" Grid.Column="1" SelectionChanged="rightSelectionChanged" HorizontalContentAlignment="Stretch" TabIndex="2" ToolTip="Select a student from this list and the other list to prepare an affinity.  Type the number of the affinity and press &quot;Set&quot; to give the pair that affinity.  It does not matter what order you select the pair."/>
+            <Button Grid.Column="2" Content="Set" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="100" Height="23" Click="SetAffinity" TabIndex="4" Margin="0,236,0,61" RenderTransformOrigin="0.49,0.217"/>
+            <TextBox x:Name="affinityAmountBox" Grid.Column="2" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Width="100" Margin="0,264,0,32" TabIndex="3"/>
+            <Button Content="Finish Editing" Grid.Column="2" Click="Button_Click" Margin="0,0,0,5" VerticalAlignment="Bottom" TabIndex="5"/>
+            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,99" TextWrapping="Wrap" Text="Affinity is how close two students are.  A higher value increases chances of two students being together.  Likewise, a lower value decreases it.  The value can be negative." Width="80"/>
+
+        </Grid>
+    </Grid>
+</Window>
